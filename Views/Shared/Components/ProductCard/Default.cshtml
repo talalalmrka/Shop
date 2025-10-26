@@ -1,0 +1,56 @@
+@model Shop.ViewComponents.ProductCardViewComponent.ProductCardModel
+
+@{
+    var className = Model.ClassName ?? "";
+    var product = Model.Product;
+    var imageUrl = string.IsNullOrEmpty(product.ImageUrl) ? "/images/product-placeholder.png" : product.ImageUrl;
+}
+
+<div class="card rounded-2xl shadow relative">
+    <a asp-controller="Home" asp-action="Product" asp-route-id="@product.Id"
+        class="block relative aspect-video overflow-hidden group">
+        <img src="@Url.Content(imageUrl)" alt="@product.Name"
+            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" />
+        @if (product.HasOffer)
+        {
+            <span class="text-xs absolute top-2 start-0  bg-primary text-white p-1 rounded-e-2xl">
+                عرض خاص
+            </span>
+        }
+        @if (product.HasCategory)
+        {
+            <a asp-controller="Home" asp-action="CategoryProducts" asp-route-categoryId="@product.CategoryId"
+                class="badge badge-blue pill absolute top-2 end-2">
+                @product.CategoryName
+            </a>
+        }
+        @if (product.OutOfStock)
+        {
+            <span class="badge badge-red pill absolute bottom-2 end-2">نفد المخزون</span>
+        }
+
+    </a>
+    <div class="card-body">
+        <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id" class="hover:underline">
+            <h6 class="card-title">@product.Name</h6>
+        </a>
+        <div class="text-sm flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                @if (product.HasOffer)
+                {
+                    <span class="text-primary font-bold">@product.ActualPriceLabel</span>
+                    <span class="text-muted line-through">@product.PriceLabel</span>
+                }
+                else
+                {
+                    <span class="text-primary font-bold">@product.PriceLabel</span>
+                }
+            </div>
+        </div>
+        <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@product.Id"
+            class="btn btn-primary btn-sm mt-2 @(product.OutOfStock ? "disabled" : "")">
+            <i class="icon bi-cart-plus"></i>
+            <span>أضف إلى السلة</span>
+        </a>
+    </div>
+</div>

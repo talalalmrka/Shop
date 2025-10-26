@@ -1,0 +1,44 @@
+@model OrderViewModel
+
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-green-50 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 text-green-800">تم إنشاء الطلب بنجاح!</h1>
+
+    <p class="mb-2">شكرًا لك <strong>@Model.CustomerName</strong> على طلبك.</p>
+    <p class="mb-2">البريد الإلكتروني: <strong>@Model.Email</strong></p>
+    <p class="mb-4">العنوان: <strong>@Model.Address</strong></p>
+
+    <h2 class="text-xl font-semibold mb-2 mt-4">تفاصيل الطلب</h2>
+    <table class="w-full text-sm border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="p-2 border">المنتج</th>
+                <th class="p-2 border">الكمية</th>
+                <th class="p-2 border">السعر</th>
+                <th class="p-2 border">المجموع</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td class="p-2 border">@item.Product.Name</td>
+                    <td class="p-2 border">@item.Quantity</td>
+                    <td class="p-2 border">@item.Product.Price.ToString("C")</td>
+                    <td class="p-2 border">@((item.Product.Price * item.Quantity).ToString("C"))</td>
+                </tr>
+            }
+            <tr class="font-bold bg-gray-50">
+                <td colspan="3" class="p-2 border text-right">الإجمالي</td>
+                <td class="p-2 border">@Model.Total.ToString("C")</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-6 text-center">
+        <a asp-action="Products" asp-controller="Home"
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 inline-flex items-center gap-1">
+            <i class="bi bi-shop-window"></i>
+            <span>العودة للمنتجات</span>
+        </a>
+    </div>
+</div>

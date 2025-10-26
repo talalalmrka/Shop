@@ -1,0 +1,66 @@
+@{
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    string action = ViewBag.PaginationAction ?? "Index";
+    string controller = ViewBag.PaginationController ?? ViewContext.RouteData.Values["controller"]?.ToString();
+    string area = ViewBag.PaginationArea ?? ViewContext.RouteData.Values["area"]?.ToString();
+}
+
+@if (totalPages > 1)
+{
+    <div class="flex justify-between px-2 py-3 text-sm">
+        <div class="">
+            صفحة @currentPage من @totalPages
+        </div>
+        <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
+            <!-- السابق -->
+            @if (currentPage > 1)
+            {
+                <a asp-area="@area" asp-controller="@controller" asp-action="@action"
+                   asp-route-page="@(currentPage - 1)"
+                   class="px-3 py-1 border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 rounded-s-md text-sm">
+                    <i class="icon bi-chevron-right"></i>
+                </a>
+            }
+            else
+            {
+                <span class="px-3 py-1 border border-gray-200 bg-gray-100 text-gray-400 rounded-s-md text-sm cursor-not-allowed">
+                    <i class="icon bi-chevron-right"></i>
+                </span>
+            }
+
+            <!-- الصفحات -->
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                if (i == currentPage)
+                {
+                    <span class="px-3 py-1 border border-sky-500 bg-sky-500 text-white text-sm -ms-px">@i</span>
+                }
+                else
+                {
+                    <a asp-area="@area" asp-controller="@controller" asp-action="@action"
+                       asp-route-page="@i"
+                       class="px-3 py-1 border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 text-sm -ms-px">
+                        @i
+                    </a>
+                }
+            }
+
+            <!-- التالي -->
+            @if (currentPage < totalPages)
+            {
+                <a asp-area="@area" asp-controller="@controller" asp-action="@action"
+                   asp-route-page="@(currentPage + 1)"
+                   class="px-3 py-1 border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 -ms-px rounded-e-md text-sm">
+                    <i class="icon bi-chevron-left"></i>
+                </a>
+            }
+            else
+            {
+                <span class="px-3 py-1 border border-gray-200 bg-gray-100 text-gray-400 rounded-e-md -ms-px text-sm cursor-not-allowed">
+                    <i class="icon bi-chevron-left"></i>
+                </span>
+            }
+        </nav>
+    </div>
+}

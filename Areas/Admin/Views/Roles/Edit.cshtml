@@ -1,0 +1,42 @@
+@model Shop.Models.RoleViewModel
+@{
+    var isEdit = !string.IsNullOrEmpty(Model.Id);
+    ViewData["Title"] = isEdit ? "تعديل" : "إنشاء";
+    var action = isEdit ? "Edit" : "Create";
+}
+<div class="card">
+    <div class="flex items-center gap-2 p-2">
+        <a asp-area="Admin" asp-controller="Roles" asp-action="Index" class="btn btn-sky btn-xs">
+            <i class="icon bi-arrow-right"></i>
+            <span>عودة</span>
+        </a>
+        @if (isEdit)
+        {
+            <a asp-area="Admin" asp-controller="Roles" asp-action="Create" asp-route-id="" class="btn btn-green btn-xs">
+                <i class="icon bi-plus-lg"></i>
+                <span>إضافة</span>
+            </a>
+        }
+
+    </div>
+    <div class="card-body">
+        <form asp-action="@action" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="grid grid-cols-1 gap-4">
+
+                <div class="col">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="form-control-error"></span>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-sky">حفظ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

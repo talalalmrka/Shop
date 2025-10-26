@@ -1,0 +1,18 @@
+{
+  "TS-Rotger.otf": {
+    "file": "TS-Rotger.otf",
+    "src": "TS-Rotger.otf"
+  },
+  "app.js": {
+    "file": "app.js",
+    "name": "app",
+    "src": "app.js",
+    "isEntry": true,
+    "css": [
+      "app.css"
+    ],
+    "assets": [
+      "TS-Rotger.otf"
+    ]
+  }
+}

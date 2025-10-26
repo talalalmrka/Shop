@@ -1,0 +1,23 @@
+@model List<Product>
+@{
+    ViewData["Title"] = ViewBag.PageTitle ?? ViewBag.CategoryName ?? "المنتجات";
+}
+<div class="">
+    @if (Model.Any())
+    {
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach (var product in Model)
+            {
+                <div class="col">
+                    <vc:product-card product="product" />
+                </div>
+            }
+        </div>
+        <!-- Pagination -->
+        <vc:pagination current-page="@(ViewBag.CurrentPage)" total-pages="@(ViewBag.TotalPages)" action="Products" />
+    }
+    else
+    {
+        <div class="alert alert-soft sm text-center">لا يوجد عناصر</div>
+    }
+</div>

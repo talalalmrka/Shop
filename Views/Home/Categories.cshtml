@@ -1,0 +1,21 @@
+@model List<Category>
+@{
+    ViewData["Title"] = "التصنيفات";
+}
+@if (Model.Any())
+{
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @foreach (var category in Model)
+        {
+            <div class="col">
+                <vc:category-card category="category" />
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-soft sm text-center">لا يوجد عناصر</div>
+}
+<vc:pagination current-page="@(ViewBag.CurrentPage)" total-pages="@(ViewBag.TotalPages)" action="Index"
+    controller="Categories" area="" />

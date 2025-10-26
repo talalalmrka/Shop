@@ -1,0 +1,20 @@
+@model Shop.ViewComponents.NavLinkViewComponent.NavLinkModel
+
+@{
+    var classes = Model.IsActive ? "active" : "";
+}
+
+<a asp-controller="@Model.Controller" asp-action="@Model.Action" class="nav-link @classes @Model.ClassName">
+    @if (!string.IsNullOrEmpty(Model.Icon))
+    {
+        <i class="icon @Model.Icon"></i>
+        @if (!string.IsNullOrEmpty(Model.Label))
+        {
+            <span>@Model.Label</span>
+        }
+    }
+    else if (!string.IsNullOrEmpty(Model.Label))
+    {
+        @Model.Label
+    }
+</a>

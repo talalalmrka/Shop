@@ -1,0 +1,90 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    Layout = "_App";
+}
+<div class="min-h-screen bg-primary/3 dark:bg-gray-900">
+    <div class="offcanvas offcanvas-start offcanvas-primary expand-lg dashboard-sidebar" id="dashboard-sidebar">
+        <div class="offcanvas-header flex-space-2 items-center h-14">
+            <a title="لمسة" asp-area="" asp-controller="Home" asp-action="Index"
+                class="navbar-brand inline-flex items-center gap-2">
+                <img src="~/images/logo-light.svg" style="width: 35px" />
+                <span>لمسة</span>
+            </a>
+            <button class="btn offcanvas-close lg:hidden">
+                <i class="icon bi-x"></i>
+            </button>
+        </div>
+        <div class="offcanvas-body pb-6">
+            <nav class="nav vertical space-y-3 dashboard-sidebar-nav">
+                <vc:nav-link label="الرئيسية" icon="bi-house" controller="Home" action="Index" />
+                <vc:nav-link label="المستخدمين" icon="bi-people" controller="Users" action="Index" />
+                <vc:nav-link label="الأدوار" icon="bi-person-gear" controller="Roles" action="Index" />
+                <vc:nav-link label="التصنيفات" icon="bi-folder" controller="Categories" action="Index" />
+                <vc:nav-link label="المنتجات" icon="bi-shop" controller="Products" action="Index" />
+            </nav>
+        </div>
+    </div>
+    <main class="lg:ps-64 min-h-75vh relative">
+        <div class="navbar h-14 bg-white dark:bg-gray-700 shadow-xs sticky top-0">
+            <div class="nav">
+                <button class="navbar-brand nav-link md:hidden offcanvas-toggle" data-fg-toggle="offcanvas"
+                    data-fg-target="#dashboard-sidebar">
+                    <i class="icon bi-list"></i>
+                </button>
+            </div>
+
+            <div class="nav">
+                <button type="button" class="nav-link dark-mode-toggle">
+                </button>
+                <div class="dropdown">
+                    <button type="button" class="nav-link dropdown-toggle">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <span>@User.Identity?.Name!</span>
+                        }
+                        else
+                        {
+                            <i class="icon bi-person-fill"></i>
+                        }
+                        <i class="icon bi-chevron-down w-3 h-3"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-end w-40">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <a class="dropdown-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                                <i class="icon bi-person-gear"></i>
+                                <span>الملف الشخصي</span>
+                            </a>
+                            <form class="dropdown-link" asp-area="Identity" asp-page="/Account/Logout"
+                                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="dropdown-link">
+                                    <i class="icon bi-box-arrow-right"></i>
+                                    <span>تسجيل الخروج</span>
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="dropdown-link" asp-area="Identity" asp-page="/Account/Login">
+                                <i class="icon bi-person-plus"></i>
+                                <span>تسجيل الدخول</span>
+                            </a>
+                            <a class="dropdown-link" asp-area="Identity" asp-page="/Account/Register">
+                                <i class="icon bi-person-plus"></i>
+                                <span>التسجيل</span>
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-2 lg:px-4 p-4 pb-20">
+            <h3 class="text-gray-500 dark:text-white text-2xl">@ViewData["Title"]</h3>
+            @RenderBody()
+        </div>
+    </main>
+</div>
+@RenderSection("Scripts", required: false)

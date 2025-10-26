@@ -1,0 +1,56 @@
+@model Shop.ViewComponents.FooterViewComponent.FooterModel
+@{
+    var themeAttr = !string.IsNullOrEmpty(Model.Theme) ? $" data-theme=\"{Model.Theme}\"" : "";
+}
+<footer class="text-white overflow-hidden relative bg-gradient-to-br from-primary-800 to-primary-600 @Model.ClassName"
+    @themeAttr>
+    <div class="bg-body-bg dark:bg-body-bg-dark absolute start-1/2 -translate-x-1/2" style="
+          width: 110%;
+          height: 30px;
+          border-bottom-left-radius: 50%;
+          border-bottom-right-radius: 50%;
+        "></div>
+    <div class="pb-6 container" style="padding-top: calc(30px + 2rem)">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="col">
+                <a title="لمسة" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <img src="@Url.Content(Model.LogoUrl)" style="width: 35px" alt="لمسة" />
+                </a>
+                <p class="mt-4">عالم الاناقة والموضة والتخفيضات</p>
+            </div>
+            <div class="col">
+                <h3 class="text-xl">الموقع</h3>
+                <nav class="nav vertical">
+                    <vc:nav-link controller="Home" action="Index" label="الرئيسية" icon="bi-house-fill" />
+                    <vc:nav-link controller="Home" action="Categories" label="التصنيفات" icon="bi-folder" />
+                    <vc:nav-link controller="Home" action="Store" label="المنتجات" icon="bi-shop" />
+                </nav>
+            </div>
+            <div class="col">
+                <div class="col">
+                    <h3 class="text-xl">حول</h3>
+                    <nav class="nav vertical">
+                        <vc:nav-link controller="Home" action="Contact" label="اتصل بنا" icon="bi-telephone" />
+                        <vc:nav-link controller="Home" action="Privacy" label="سياسة الخصوصية"
+                            icon="bi-shield-fill-check" />
+                    </nav>
+                </div>
+            </div>
+            <div class="col">
+                <h3 class="text-xl">تابعنا</h3>
+                <div class="flex items-center gap-2">
+                    <a class="btn-circle btn-circle-pinterest" title="Pinterest" href="#" target="_blank"
+                        rel="nofollow">
+                        <i class="icon bi-pinterest"> </i>
+                    </a>
+                    <a class="btn-circle btn-circle-telegram" title="Telegram" href="#" target="_blank" rel="nofollow">
+                        <i class="icon bi-telegram"> </i>
+                    </a>
+                    <a class="btn-circle btn-circle-whatsapp" title="Whatsapp" href="#" target="_blank" rel="nofollow">
+                        <i class="icon bi-whatsapp"> </i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

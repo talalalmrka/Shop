@@ -1,0 +1,14 @@
+@model Shop.ViewComponents.SectionTitleViewComponent.SectionTitleModel
+@if (!string.IsNullOrEmpty(Model.Title))
+{
+    <div class="mb-3 @Model.ClassName">
+        <div class="mb-2 flex items-center gap-2" style="">
+            <h2 class="text-xl font-semibold mb-0 flex-1">@Model.Title</h2>
+        </div>
+        <div class="flex items-center" style="">
+            <div class="w-20 border-b-2 border-primary" style=""></div>
+            <div class="border flex-1" style=""></div>
+        </div>
+    </div>
+
+}

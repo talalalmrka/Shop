@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Rotger";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./TS-Rotger.otf") format("truetype");
+  font-display: swap;
+}

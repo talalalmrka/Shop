@@ -1,0 +1,33 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - متجر لمسة</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="~/images/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="~/images/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="~/images/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="~/images/favicon/site.webmanifest" />
+  <link rel="stylesheet" href="~/dist/app.css" />
+  <environment include="Development">
+    <script type="module" vite-src="~/app.js" asp-append-version="true"></script>
+  </environment>
+  <environment include="Production">
+    <link rel="stylesheet" vite-href="~/dist/app.css" />
+  </environment>
+</head>
+
+<body>
+  @RenderBody()
+  <environment include="Production">
+    <script type="module" src="~/dist/app.js" asp-append-version="true"></script>
+  </environment>
+  <script type="module" src="~/dist/app.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

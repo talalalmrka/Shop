@@ -1,0 +1,19 @@
+@model Shop.ViewComponents.CategoryCardViewComponent.CategoryCardModel
+
+@{
+    var className = Model.ClassName ?? "";
+    var category = Model.Category;
+}
+
+<a asp-controller="Home" asp-action="Products" asp-route-categoryId="@category.Id"
+    class="card group aspect-video relative overflow-hidden rounded-2xl text-white @className">
+    <img src="@Url.Content(category.ImageUrl)" alt="@category.Name"
+        class="absolute w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300" />
+
+    <div class="absolute inset-0 bg-black/15 z-2 group-hover:bg-black/40 transition-colors duration-300"></div>
+
+    <adiv
+        class="absolute inset-0 z-3 flex flex-col items-center justify-center text-white transition-colors duration-300">
+        <h5 class="font-semibold text-2xl">@category.Name</h5>
+    </adiv>
+</a>

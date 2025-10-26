@@ -1,0 +1,45 @@
+﻿@using Shop.Helpers
+@{
+    ViewData["Title"] = "متجر لمسة";
+    ViewData["Subtitle"] = "عالم الاناقة والموضة والتخفيضات";
+    var Categories = ShopHelper.GetAllCategories();
+    var Products = ShopHelper.GetLatestProducts();
+}
+<section id="#categories">
+    <vc:section-title title="الأقسام" />
+    @if (Categories.Any())
+    {
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach (var category in Categories)
+            {
+                <div class="col">
+                    <vc:category-card category="category" />
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-soft sm text-center">لا يوجد عناصر</div>
+    }
+
+</section>
+<section id="#latest-products" class="mt-8">
+    <vc:section-title title="أحدث المنتجات" />
+    @if (Products.Any())
+    {
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach (var product in Products)
+            {
+                <div class="col">
+                    <vc:product-card product="product" />
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-soft sm text-center">لا يوجد عناصر</div>
+    }
+
+</section>

@@ -1,0 +1,37 @@
+@import "tailwindcss" source("../");
+@import "fadgram-ui";
+@import "./fonts.css";
+@import "./theme.css";
+
+@layer base {
+  body {
+    @apply relative font-rotger;
+    @apply text-gray-700 dark:text-gray-100;
+    @apply bg-body-bg dark:bg-body-bg-dark;
+  }
+  .nav-link {
+    @apply gap-1!;
+  }
+  .header-navbar {
+    .nav-link {
+      @apply inline-flex! items-center! gap-1!;
+    }
+  }
+  .dashboard-sidebar-nav {
+    .nav-link {
+      &.active {
+        @apply bg-black/15 rounded-full;
+      }
+    }
+  }
+}
+@utility form-control-error {
+  @apply mt-2 text-xs text-red-600 dark:text-red-500;
+}
+
+@utility breadcrumb {
+  @apply flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 list-none;
+}
+@utility breadcrumb-link {
+  @apply hover:underline;
+}

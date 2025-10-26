@@ -1,0 +1,71 @@
+@model List<Shop.Models.CartItem>
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+
+@if (!Model.Any())
+{
+    <div class="alert alert-soft text-center">سلة التسوق فارغة</div>
+}
+else
+{
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <h2 class="text-xl font-semibold mb-2">تفاصيل السلة</h2>
+            <table class="w-full text-sm border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="p-2 border">المنتج</th>
+                        <th class="p-2 border">الكمية</th>
+                        <th class="p-2 border">السعر</th>
+                        <th class="p-2 border">المجموع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="p-2 border">@item.Product.Name</td>
+                            <td class="p-2 border">@item.Quantity</td>
+                            <td class="p-2 border">@item.Product.Price.ToString("C")</td>
+                            <td class="p-2 border">@((item.Product.Price * item.Quantity).ToString("C"))</td>
+                        </tr>
+                    }
+                    <tr class="font-bold">
+                        <td colspan="3" class="p-2 border text-right">الإجمالي</td>
+                        <td class="p-2 border">@Model.Sum(c => c.Product.Price * c.Quantity).ToString("C")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-semibold mb-2">معلومات العميل</h2>
+            <form asp-action="Checkout" method="post" class="space-y-4">
+                <div>
+                    <label for="name" class="block mb-1">الاسم الكامل</label>
+                    <input type="text" name="name" id="name" required class="w-full border p-2 rounded" />
+                </div>
+                <div>
+                    <label for="email" class="block mb-1">البريد الإلكتروني</label>
+                    <input type="email" name="email" id="email" required class="w-full border p-2 rounded" />
+                </div>
+                <div>
+                    <label for="address" class="block mb-1">العنوان</label>
+                    <textarea name="address" id="address" required class="w-full border p-2 rounded"></textarea>
+                </div>
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
+                    إنهاء الطلب
+                </button>
+            </form>
+
+            @if (TempData["OrderSuccess"] != null)
+            {
+                <div class="mt-4 p-2 bg-green-100 text-green-700 rounded">
+                    @TempData["OrderSuccess"]
+                </div>
+            }
+        </div>
+    </div>
+}

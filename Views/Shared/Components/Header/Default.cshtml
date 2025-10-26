@@ -1,0 +1,71 @@
+@model Shop.ViewComponents.HeaderViewComponent.HeaderModel
+@using Microsoft.AspNetCore.Identity
+@using Shop.Helpers
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var themeAttr = !string.IsNullOrEmpty(Model.Theme) ? $" data-theme=\"{Model.Theme}\"" : "";
+    var itemsCount = CartHelper.GetCartItemsCount();
+}
+<header class="@Model.ClassName" @themeAttr>
+    <nav class="header-navbar navbar h-14 max-w-7xl">
+        <button class="navbar-toggle">
+            <i class="bi-list"></i>
+        </button>
+        <a title="لمسة" asp-controller="Home" asp-action="Index" class="navbar-brand">
+            <img src="@Url.Content(Model.LogoUrl)" style="width: 35px" alt="لمسة" />
+        </a>
+        <div class="nav navbar-nav navbar-collapse expand-md">
+            <vc:nav-link controller="Home" action="Index" label="الرئيسية" icon="bi-house-fill" />
+            <vc:nav-link controller="Home" action="Categories" label="التصنيفات" icon="bi-folder" />
+            <vc:nav-link controller="Home" action="Products" label="المنتجات" icon="bi-shop" />
+            <vc:nav-link controller="Home" action="Contact" label="اتصل بنا" icon="bi-telephone" />
+            <vc:nav-link controller="Home" action="Privacy" label="سياسة الخصوصية" icon="bi-shield-fill-check" />
+        </div>
+        <div class="nav gap-2">
+            <button type="button" class="nav-link dark-mode-toggle">
+                <i class="icon bi-moon-stars-fill"></i>
+            </button>
+            <div class="dropdown">
+                <button type="button" class="nav-link dropdown-toggle">
+                    <i class="icon bi-person-fill"></i>
+                    <i class="icon bi-chevron-down w-3 h-3"></i>
+                </button>
+                <div class="dropdown-menu dropdown-end w-40">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="dropdown-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                            <i class="icon bi-person-gear"></i>
+                            <span>الملف الشخصي</span>
+                        </a>
+                        <form class="dropdown-link" asp-area="Identity" asp-page="/Account/Logout"
+                            asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="dropdown-link">
+                                <i class="icon bi-box-arrow-right"></i>
+                                <span>تسجيل الخروج</span>
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="dropdown-link" asp-area="Identity" asp-page="/Account/Login">
+                            <i class="icon bi-person-plus"></i>
+                            <span>تسجيل الدخول</span>
+                        </a>
+                        <a class="dropdown-link" asp-area="Identity" asp-page="/Account/Register">
+                            <i class="icon bi-person-plus"></i>
+                            <span>التسجيل</span>
+                        </a>
+                    }
+                </div>
+            </div>
+            <a title="سلة التسوق" asp-controller="Home" asp-action="Cart" class="nav-link relative">
+                @if (itemsCount > 0)
+                {
+                    <span class="text-xs absolute bg-red -top-2 -start-2 px-1 py-0.5">@itemsCount</span>
+                }
+                <i class="icon bi-cart-fill w-5 h-5"></i>
+            </a>
+        </div>
+    </nav>
+</header>

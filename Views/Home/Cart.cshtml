@@ -1,0 +1,74 @@
+@model List<Shop.Models.CartItem>
+
+@{
+    ViewData["Title"] = "سلة التسوق";
+    var previousUrl = ViewContext.HttpContext.Request.Headers["Referer"].ToString();
+    if (string.IsNullOrEmpty(previousUrl))
+    {
+        previousUrl = Url.Action("Products", "Home");
+    }
+}
+
+<div class="mb-4">
+    <a href="@previousUrl" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+        العودة
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-soft text-center">سلة التسوق فارغة</div>
+}
+else
+{
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <table class="w-full text-sm border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="p-2 border">المنتج</th>
+                    <th class="p-2 border">الكمية</th>
+                    <th class="p-2 border">السعر</th>
+                    <th class="p-2 border">المجموع</th>
+                    <th class="p-2 border">إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="p-2 border">@item.Product.Name</td>
+                        <td class="p-2 border">
+                            <form asp-action="UpdateCartQuantity" method="post" class="flex items-center space-x-2">
+                                <input type="hidden" name="id" value="@item.Product.Id" />
+                                <input type="number" name="quantity" value="@item.Quantity" min="1"
+                                    class="w-16 border p-1 rounded" />
+                                <button type="submit"
+                                    class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">تحديث</button>
+                            </form>
+                        </td>
+                        <td class="p-2 border">@item.Product.Price.ToString("C")</td>
+                        <td class="p-2 border">@((item.Product.Price * item.Quantity).ToString("C"))</td>
+                        <td class="p-2 border">
+                            <a asp-action="Remove" asp-route-id="@item.Product.Id"
+                                class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">حذف</a>
+                        </td>
+                    </tr>
+                }
+                <tr class="font-bold">
+                    <td colspan="3" class="p-2 border text-right">الإجمالي</td>
+                    <td class="p-2 border">@Model.Sum(c => c.Product.Price * c.Quantity).ToString("C")</td>
+                    <td class="p-2 border"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="mt-4 flex justify-between items-center">
+            <a asp-action="ClearCart" class="btn btn-outline-secondary">تفريغ السلة</a>
+            <a asp-action="Checkout" class="btn btn-primary">
+                <i class="icon bi-shop-window"></i>
+                <span>إتمام الطلب</span>
+
+            </a>
+        </div>
+    </div>
+}
