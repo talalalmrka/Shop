@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Shop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class UsersController : Controller
+    public class UsersController : AdminBaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -136,9 +136,15 @@ namespace Shop.Areas.Admin.Controllers
                 model.Roles = _roleManager.Roles.Select(r => r.Name!).ToList();
                 return View("Edit", model);
             }
-
+            if (string.IsNullOrEmpty(model.Id))
+            {
+                return NotFound();
+            }
             var user = await _userManager.FindByIdAsync(model.Id);
-            if (user == null) return NotFound();
+            if (user == null)
+            {
+                return NotFound();
+            }
 
             user.UserName = model.UserName;
             user.Email = model.Email;

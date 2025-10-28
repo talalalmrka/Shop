@@ -8,11 +8,11 @@ using Shop.Data;
 
 #nullable disable
 
-namespace Shop.Data.Migrations
+namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251024221054_AddProductsAndCategoriesTable")]
-    partial class AddProductsAndCategoriesTable
+    [Migration("20251028173323_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,6 +234,43 @@ namespace Shop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "قسم الملابس",
+                            ImageUrl = "/images/categories/clothes.jpg",
+                            Name = "الملابس"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "قسم الإكسسوارات",
+                            ImageUrl = "/images/categories/accessories.jpg",
+                            Name = "الإكسسوارات"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "قسم الأحذية",
+                            ImageUrl = "/images/categories/high-heels.jpg",
+                            Name = "الأحذية"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "قسم الملابس الكاجوال",
+                            ImageUrl = "/images/categories/casual.jpg",
+                            Name = "كاجوال"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "قسم الملابس الشتوية",
+                            ImageUrl = "/images/categories/winter.jpg",
+                            Name = "الملابس الشتوية"
+                        });
                 });
 
             modelBuilder.Entity("Shop.Models.Product", b =>
@@ -275,6 +312,204 @@ namespace Shop.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "فستان خفيف وأنيق للصيف",
+                            ImageUrl = "/images/products/comfortable-summer-dress.jpg",
+                            Name = "فستان صيفي مريح",
+                            OfferDate = new DateTime(2025, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 90m,
+                            Price = 120m,
+                            Stock = 25
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Description = "فستان أبيض أنيق للمناسبات",
+                            ImageUrl = "/images/products/short-white-dress.jpg",
+                            Name = "فستان أبيض قصير",
+                            Price = 150m,
+                            Stock = 18
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            Description = "قميص حريري أنيق للنساء",
+                            ImageUrl = "/images/products/silk-blouse.jpg",
+                            Name = "قميص حريري",
+                            OfferDate = new DateTime(2025, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 135m,
+                            Price = 180m,
+                            Stock = 12
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 1,
+                            Description = "تنورة ميدي أنيقة ومريحة",
+                            ImageUrl = "/images/products/midi-skirt.jpg",
+                            Name = "تنورة ميدي",
+                            Price = 100m,
+                            Stock = 30
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 1,
+                            Description = "قميص قطني مخطط بألوان جميلة",
+                            ImageUrl = "/images/products/striped-tshirt.jpg",
+                            Name = "قميص مخطط",
+                            OfferDate = new DateTime(2025, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 60m,
+                            Price = 80m,
+                            Stock = 45
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            Description = "سوار ذهبي أنيق للنساء",
+                            ImageUrl = "/images/products/gold-bangle-bracelet.jpg",
+                            Name = "سوار ذهبي",
+                            OfferDate = new DateTime(2025, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 200m,
+                            Price = 250m,
+                            Stock = 8
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 2,
+                            Description = "قلادة لؤلؤ فاخرة وأنيقة",
+                            ImageUrl = "/images/products/pearl-necklace.jpg",
+                            Name = "قلادة لؤلؤ",
+                            Price = 300m,
+                            Stock = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 2,
+                            Description = "حقيبة كتف أنيقة وعملية",
+                            ImageUrl = "/images/products/shoulder-bag.jpg",
+                            Name = "حقيبة كتف",
+                            OfferDate = new DateTime(2025, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 160m,
+                            Price = 200m,
+                            Stock = 15
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 2,
+                            Description = "نظارات شمسية دائرية أنيقة",
+                            ImageUrl = "/images/products/round-sunglasses.jpg",
+                            Name = "نظارات شمسية دائرية",
+                            Price = 120m,
+                            Stock = 22
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 2,
+                            Description = "قبعة واسعة الحواف أنيقة للصيف",
+                            ImageUrl = "/images/products/wide-brim-hat.jpg",
+                            Name = "قبعة واسعة الحواف",
+                            OfferDate = new DateTime(2025, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 70m,
+                            Price = 90m,
+                            Stock = 35
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 3,
+                            Description = "كعب عالي ملون أنيق ومريح",
+                            ImageUrl = "/images/products/colorful-thick-heeled-shoes.jpg",
+                            Name = "كعب عالي ملون",
+                            OfferDate = new DateTime(2025, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 140m,
+                            Price = 180m,
+                            Stock = 20
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 3,
+                            Description = "صندل بكعب متوسط مريح للصيف",
+                            ImageUrl = "/images/products/medium-heeled-sandals.jpg",
+                            Name = "صندل بكعب متوسط",
+                            Price = 150m,
+                            Stock = 15
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 3,
+                            Description = "حذاء مسطح أنيق ومريح",
+                            ImageUrl = "/images/products/elegant-flat-shoes.jpg",
+                            Name = "حذاء مسطح أنيق",
+                            Price = 120m,
+                            Stock = 25
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 3,
+                            Description = "حذاء منصة عصري ومريح",
+                            ImageUrl = "/images/products/platform-shoes.jpg",
+                            Name = "حذاء منصة",
+                            Price = 160m,
+                            Stock = 18
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 3,
+                            Description = "كعب عالي كلاسيكي أنيق",
+                            ImageUrl = "/images/products/high-heels.jpg",
+                            Name = "كعب عالي كلاسيكي",
+                            Price = 200m,
+                            Stock = 12
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 4,
+                            Description = "قميص قطني ملون مريح للكاجوال",
+                            ImageUrl = "/images/products/colored-cotton-t-shirts.jpg",
+                            Name = "قميص قطني ملون",
+                            OfferDate = new DateTime(2025, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OfferPrice = 55m,
+                            Price = 70m,
+                            Stock = 50
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 4,
+                            Description = "شورت جينز مريح للصيف",
+                            ImageUrl = "/images/products/denim-shorts.jpg",
+                            Name = "شورت جينز",
+                            Price = 90m,
+                            Stock = 30
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CategoryId = 4,
+                            Description = "جينز ضيق أنيق ومريح",
+                            ImageUrl = "/images/products/skinny-jeans.jpg",
+                            Name = "جينز ضيق",
+                            Price = 110m,
+                            Stock = 40
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

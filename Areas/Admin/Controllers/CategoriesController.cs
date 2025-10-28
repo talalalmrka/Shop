@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Shop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoriesController : Controller
+    public class CategoriesController : AdminBaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _env;

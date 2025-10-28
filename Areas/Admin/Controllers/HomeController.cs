@@ -5,7 +5,7 @@ using Shop.Models;
 namespace Shop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class HomeController : Controller
+    public class HomeController : AdminBaseController
     {
         private readonly ILogger<HomeController> _logger;
 

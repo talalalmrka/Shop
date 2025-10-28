@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Shop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RolesController : Controller
+    public class RolesController : AdminBaseController
     {
         private readonly RoleManager<IdentityRole> _roleManager;
 

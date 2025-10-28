@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_App";
+}
+<vc:header theme="dark" />
+<main role="main">
+    <div class="text-white bg-cover bg-center relative flex flex-col items-center justify-center z-1" style="">
+        <div class="overflow-hidden absolute top-0 start-0 end-0 bottom-0 z-1" style="">
+            <img src="~/images/hero.jpg" alt="Hero image" class="w-full h-full object-cover object-center" style="" />
+            <div class="bg-black/30 absolute top-0 start-0 end-0 bottom-0" style=""></div>
+        </div>
+        <div class="text-center flex flex-col items-center-safe z-2 container pb-10" style="padding-top: 5rem">
+            <h1 class="text-white text-2xl lg:text-3xl">@ViewData["Title"]</h1>
+            @if (!string.IsNullOrEmpty(ViewData["Subtitle"] as string))
+            {
+                <p class="text-white mt-2 text-lg">@ViewData["Subtitle"]</p>
+            }
+        </div>
+        <div class="flex flex-col items-center justify-center w-full absolute pointer-events-none bg-no-repeat -bottom-px -left-px -right-px leading-[0] overflow-hidden mx-px text-body-bg dark:text-body-bg-dark"
+            style="width: 100%; z-index: 2">
+            <svg class="w-[120vw] md:w-[180vw]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"
+                preserveAspectRatio="none">
+                <path class="bg-white fill-current"
+                    d="M500,97C126.7,96.3,0.8,19.8,0,0v100l1000,0V1C1000,19.4,873.3,97.8,500,97z">
+                </path>
+            </svg>
+        </div>
+    </div>
+    <div class="container py-6 z-2">
+        <div class="bg-white/80 dark:bg-gray-700/80 w-80 md:w-96 mx-auto p-4 z-20 rounded-3xl shadow mb-5">
+            @RenderBody()
+        </div>
+    </div>
+</main>
+<vc:footer theme="dark" />
+@await RenderSectionAsync("Scripts", required: false)
